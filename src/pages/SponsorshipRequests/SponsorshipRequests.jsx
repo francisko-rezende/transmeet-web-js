@@ -42,18 +42,6 @@ const Home = () => {
               <p>Status: {getSponsorshipStatus(request.accept)}</p>
             </li>
           ))}
-        {/* {sponsors.length !== 0 &&
-          sponsors.map((sponsor) => (
-            <li>
-              <Link
-                to={`sponsors/${sponsor.id}`}
-                state={sponsor}
-                id={sponsor.id}
-              >
-                {sponsor.name}{" "}
-              </Link>
-            </li>
-          ))} */}
       </ul>
     </>
   );
