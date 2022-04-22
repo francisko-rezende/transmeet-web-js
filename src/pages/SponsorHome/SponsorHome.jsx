@@ -36,7 +36,9 @@ const SponsorHome = () => {
               <p>Nome: {`${user.accounts_accountsTomatch_idUser.name}`}</p>
               <p>Status: {getSponsorshipStatus(user.accept)}</p>
               <p>
-                <Link to={`candidatos/${user.id}`}>booora</Link>
+                <Link to={`candidatos/${user.id}`} state={user}>
+                  booora
+                </Link>
               </p>
             </li>
           ))}
