@@ -9,18 +9,28 @@ const Login = () => {
 
   React.useEffect(() => {
     const logIn = async () => {
+      // const {
+      //   data: { access_token, account },
+      // } = await api.post("/login", {
+      //   email: "marcio@gmail.com",
+      //   password: "Marcio123",
+      // });
+
       const {
         data: { access_token, account },
       } = await api.post("/login", {
-        email: "marcio@gmail.com",
-        password: "Marcio123",
+        email: "estrogonofe@palacio.com",
+        password: "Estrogonofe123",
       });
 
       setUserData({ access_token: access_token, account: account });
 
-      if (userData.access_token) {
-        navigate("/conta");
+      if (userData.access_token && userData.account.typeId === 1) {
+        navigate("/usuario");
       }
+
+      if (userData.access_token && userData.account.typeId === 2)
+        navigate("/sponsor");
     };
 
     logIn();
