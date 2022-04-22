@@ -38,6 +38,10 @@ const Home = () => {
             </li>
           ))}
       </ul>
+
+      <h2>
+        <Link to="candidaturas">Ver candidaturas</Link>
+      </h2>
     </>
   );
 };
