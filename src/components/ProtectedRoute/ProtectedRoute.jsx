@@ -8,8 +8,6 @@ const ProtectedRoute = ({ children }) => {
     userData: { access_token },
   } = React.useContext(UserContext);
 
-  console.log(access_token);
-
   return access_token ? children : <Navigate to="/no-login" />;
 };
 

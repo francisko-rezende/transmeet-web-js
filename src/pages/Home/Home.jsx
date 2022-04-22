@@ -32,7 +32,11 @@ const Home = () => {
         {sponsors.length !== 0 &&
           sponsors.map((sponsor) => (
             <li>
-              <Link to={`sponsors/${sponsor.id}`} state={sponsor}>
+              <Link
+                to={`sponsors/${sponsor.id}`}
+                state={sponsor}
+                key={sponsor.id}
+              >
                 {sponsor.name}{" "}
               </Link>
             </li>
