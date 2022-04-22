@@ -4,39 +4,67 @@ import { UserContext } from "../../components/UserContext/UserContext";
 import api from "../../services/api";
 
 const Login = () => {
+  const [loginData, setLoginData] = React.useState({ email: "", password: "" });
+
   const { userData, setUserData } = React.useContext(UserContext);
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    const logIn = async () => {
-      // const {
-      //   data: { access_token, account },
-      // } = await api.post("/login", {
-      //   email: "marcio@gmail.com",
-      //   password: "Marcio123",
-      // });
+  const logIn = async (loginData) => {
+    const {
+      data: { access_token, account },
+    } = await api.post("/login", loginData);
 
-      const {
-        data: { access_token, account },
-      } = await api.post("/login", {
-        email: "estrogonofe@palacio.com",
-        password: "Estrogonofe123",
-      });
+    setUserData({ access_token: access_token, account: account });
 
-      setUserData({ access_token: access_token, account: account });
+    if (userData.access_token && userData.account.typeId === 1) {
+      navigate("/usuario");
+    }
 
-      if (userData.access_token && userData.account.typeId === 1) {
-        navigate("/usuario");
-      }
+    if (userData.access_token && userData.account.typeId === 2)
+      navigate("/sponsor");
+  };
 
-      if (userData.access_token && userData.account.typeId === 2)
-        navigate("/sponsor");
-    };
+  return (
+    <>
+      <h1>Página de login</h1>
+      <form>
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value={loginData.email}
+          onChange={({ target }) =>
+            setLoginData((loginData) => ({ ...loginData, email: target.value }))
+          }
+          required
+        />
 
-    logIn();
-  });
-
-  return <div>Página de login</div>;
+        <label htmlFor="">Senha</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          value={loginData.password}
+          onChange={({ target }) =>
+            setLoginData({ ...loginData, password: target.value })
+          }
+          onBlur={({ target }) =>
+            setLoginData({ ...loginData, password: target.value })
+          }
+          required
+        />
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            logIn(loginData);
+          }}
+        >
+          Entrar
+        </button>
+      </form>
+    </>
+  );
 };
 
 export default Login;
