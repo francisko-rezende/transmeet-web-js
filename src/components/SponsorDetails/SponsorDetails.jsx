@@ -16,7 +16,6 @@ const requestSponsorship = async (userId, sponsorId, access_token) => {
       },
     }
   );
-  console.log(response);
 };
 
 const SponsorDetails = () => {
@@ -46,7 +45,7 @@ const SponsorDetails = () => {
         <p>Site: {website}</p>
       </main>
       <button
-        onClick={() => requestSponsorship(sponsorId, account.id, access_token)}
+        onClick={() => requestSponsorship(account.id, sponsorId, access_token)}
       >
         Tentar patrocínio
       </button>
