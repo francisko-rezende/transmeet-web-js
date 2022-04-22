@@ -2,6 +2,7 @@ import React from "react";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SponsorRoutes from "./components/SponsorRoutes";
 import UserRoutes from "./components/UserRoutes/UserRoutes";
 
 import Login from "./pages/Login";
@@ -13,11 +14,18 @@ function Navigation() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route
-          path="conta/*"
+          path="usuario/*"
           element={
             <ProtectedRoute>
               <UserRoutes />
-              {/* <UserRo /> */}
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="sponsor/*"
+          element={
+            <ProtectedRoute>
+              <SponsorRoutes />
             </ProtectedRoute>
           }
         ></Route>

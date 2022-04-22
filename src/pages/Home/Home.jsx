@@ -31,12 +31,8 @@ const Home = () => {
       <ul>
         {sponsors.length !== 0 &&
           sponsors.map((sponsor) => (
-            <li>
-              <Link
-                to={`sponsors/${sponsor.id}`}
-                state={sponsor}
-                key={sponsor.id}
-              >
+            <li key={sponsor.id}>
+              <Link to={`sponsors/${sponsor.id}`} state={sponsor}>
                 {sponsor.name}{" "}
               </Link>
             </li>
