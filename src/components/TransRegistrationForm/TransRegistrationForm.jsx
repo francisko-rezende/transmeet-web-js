@@ -214,9 +214,6 @@ const TransRegistrationForm = () => {
           Criar conta
         </button>
       </form>
-      <button onClick={() => console.log(userRegistrationData)}>
-        Impreime
-      </button>
     </div>
   );
 };
