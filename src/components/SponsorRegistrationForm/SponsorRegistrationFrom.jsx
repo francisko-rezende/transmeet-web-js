@@ -27,9 +27,10 @@ const SponsorRegistrationFrom = () => {
     }));
   }, [state]);
 
-  const registerSponsor = async (e) => {
-    e.preventDefault();
+  const registerSponsor = async () => {
     const response = await api.post("/sponsors", sponsorRegistrationData);
+
+    console.log(response);
   };
 
   return (
@@ -43,7 +44,7 @@ const SponsorRegistrationFrom = () => {
           id="name"
           value={sponsorRegistrationData.name}
           onChange={({ target }) =>
-            sponsorRegistrationData((loginData) => ({
+            setSponsorRegistrationData((loginData) => ({
               ...loginData,
               name: target.value,
             }))
@@ -58,7 +59,7 @@ const SponsorRegistrationFrom = () => {
           id="email"
           value={sponsorRegistrationData.email}
           onChange={({ target }) =>
-            sponsorRegistrationData((loginData) => ({
+            setSponsorRegistrationData((loginData) => ({
               ...loginData,
               email: target.value,
             }))
@@ -73,7 +74,7 @@ const SponsorRegistrationFrom = () => {
           id="password"
           value={sponsorRegistrationData.password}
           onChange={({ target }) =>
-            sponsorRegistrationData((loginData) => ({
+            setSponsorRegistrationData((loginData) => ({
               ...loginData,
               password: target.value,
             }))
@@ -88,7 +89,7 @@ const SponsorRegistrationFrom = () => {
           id="regNumber"
           value={sponsorRegistrationData.regNumber}
           onChange={({ target }) =>
-            sponsorRegistrationData((loginData) => ({
+            setSponsorRegistrationData((loginData) => ({
               ...loginData,
               regNumber: target.value,
             }))
@@ -104,7 +105,7 @@ const SponsorRegistrationFrom = () => {
           rows={10}
           value={sponsorRegistrationData.description}
           onChange={({ target }) =>
-            sponsorRegistrationData((loginData) => ({
+            setSponsorRegistrationData((loginData) => ({
               ...loginData,
               description: target.value,
             }))
@@ -118,7 +119,7 @@ const SponsorRegistrationFrom = () => {
           id="telephone"
           value={sponsorRegistrationData.telephone}
           onChange={({ target }) =>
-            sponsorRegistrationData((loginData) => ({
+            setSponsorRegistrationData((loginData) => ({
               ...loginData,
               telephone: target.value,
             }))
@@ -133,7 +134,7 @@ const SponsorRegistrationFrom = () => {
           id="city"
           value={sponsorRegistrationData.city}
           onChange={({ target }) =>
-            sponsorRegistrationData((loginData) => ({
+            setSponsorRegistrationData((loginData) => ({
               ...loginData,
               city: target.value,
             }))
@@ -148,7 +149,7 @@ const SponsorRegistrationFrom = () => {
           id="address"
           value={sponsorRegistrationData.address}
           onChange={({ target }) =>
-            sponsorRegistrationData((loginData) => ({
+            setSponsorRegistrationData((loginData) => ({
               ...loginData,
               address: target.value,
             }))
@@ -163,7 +164,7 @@ const SponsorRegistrationFrom = () => {
           id="site"
           value={sponsorRegistrationData.site}
           onChange={({ target }) =>
-            sponsorRegistrationData((loginData) => ({
+            setSponsorRegistrationData((loginData) => ({
               ...loginData,
               site: target.value,
             }))
@@ -187,7 +188,13 @@ const SponsorRegistrationFrom = () => {
             </option>
           ))}
         </select>
-        <button type="submit" onSubmit={(e) => registerSponsor(e)}>
+        <button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            registerSponsor();
+          }}
+        >
           Criar conta
         </button>
       </form>

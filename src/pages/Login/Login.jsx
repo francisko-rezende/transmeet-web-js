@@ -56,7 +56,7 @@ const Login = () => {
         />
         <button
           type="submit"
-          onSubmit={(e) => {
+          onClick={(e) => {
             e.preventDefault();
             logIn(loginData);
           }}

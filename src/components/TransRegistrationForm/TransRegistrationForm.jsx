@@ -1,4 +1,5 @@
 import React from "react";
+import api from "../../services/api";
 import { getStateId } from "../../utils/getStateId";
 import { states } from "../../utils/states";
 
@@ -26,6 +27,12 @@ const TransRegistrationForm = () => {
       stateId: getStateId(state),
     }));
   }, [state]);
+
+  const registerUser = async () => {
+    const response = await api.post("/users", userRegistrationData);
+
+    console.log(response);
+  };
 
   return (
     <div>
@@ -197,7 +204,19 @@ const TransRegistrationForm = () => {
             </option>
           ))}
         </select>
+        <button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            registerUser();
+          }}
+        >
+          Criar conta
+        </button>
       </form>
+      <button onClick={() => console.log(userRegistrationData)}>
+        Impreime
+      </button>
     </div>
   );
 };
