@@ -1,44 +1,49 @@
 import React from "react";
+import api from "../../services/api";
 import { getStateId } from "../../utils/getStateId";
 import { states } from "../../utils/states";
 
-const TransRegistrationForm = () => {
-  const [userRegistrationData, setUserRegistrationData] = React.useState({
+const SponsorRegistrationFrom = () => {
+  const [sponsorRegistrationData, setSponsorRegistrationData] = React.useState({
     name: "",
     email: "",
     password: "",
     regNumber: "",
-    birthDate: "",
     address: "",
-    gender: "",
     description: "",
     telephone: "",
     city: "",
-    stateId: "",
-    typeId: 1,
+    site: "",
+    stateId: 24,
+    typeId: 2,
   });
 
   const [state, setState] = React.useState("");
 
   React.useEffect(() => {
-    setUserRegistrationData((data) => ({
+    setSponsorRegistrationData((data) => ({
       ...data,
       stateId: getStateId(state),
     }));
   }, [state]);
 
+  const registerSponsor = async (e) => {
+    e.preventDefault();
+    const response = await api.post("/sponsors", sponsorRegistrationData);
+  };
+
   return (
     <div>
-      <h1>Registro de usuário/Pessoa Trans</h1>
+      <h1>Registro de Sponsor</h1>
       <form>
         <label htmlFor="name">Nome</label>
         <input
           type="text"
           name="name"
           id="name"
-          value={userRegistrationData.name}
+          value={sponsorRegistrationData.name}
           onChange={({ target }) =>
-            setUserRegistrationData((loginData) => ({
+            sponsorRegistrationData((loginData) => ({
               ...loginData,
               name: target.value,
             }))
@@ -51,9 +56,9 @@ const TransRegistrationForm = () => {
           type="email"
           name="email"
           id="email"
-          value={userRegistrationData.email}
+          value={sponsorRegistrationData.email}
           onChange={({ target }) =>
-            setUserRegistrationData((loginData) => ({
+            sponsorRegistrationData((loginData) => ({
               ...loginData,
               email: target.value,
             }))
@@ -66,9 +71,9 @@ const TransRegistrationForm = () => {
           type="password"
           name="password"
           id="password"
-          value={userRegistrationData.password}
+          value={sponsorRegistrationData.password}
           onChange={({ target }) =>
-            setUserRegistrationData((loginData) => ({
+            sponsorRegistrationData((loginData) => ({
               ...loginData,
               password: target.value,
             }))
@@ -76,14 +81,14 @@ const TransRegistrationForm = () => {
           required
         />
 
-        <label htmlFor="regNumber">CPF</label>
+        <label htmlFor="regNumber">CNPJ</label>
         <input
           type="tel"
           name="regNumber"
           id="regNumber"
-          value={userRegistrationData.regNumber}
+          value={sponsorRegistrationData.regNumber}
           onChange={({ target }) =>
-            setUserRegistrationData((loginData) => ({
+            sponsorRegistrationData((loginData) => ({
               ...loginData,
               regNumber: target.value,
             }))
@@ -91,60 +96,15 @@ const TransRegistrationForm = () => {
           required
         />
 
-        <label htmlFor="birthDate">Data de Nascimento</label>
-        <input
-          type="date"
-          name="birthDate"
-          id="birthDate"
-          value={userRegistrationData.birthDate}
-          onChange={({ target }) =>
-            setUserRegistrationData((loginData) => ({
-              ...loginData,
-              birthDate: target.value,
-            }))
-          }
-          required
-        />
-
-        <label htmlFor="address">Endereço</label>
-        <input
-          type="text"
-          name="address"
-          id="address"
-          value={userRegistrationData.address}
-          onChange={({ target }) =>
-            setUserRegistrationData((loginData) => ({
-              ...loginData,
-              address: target.value,
-            }))
-          }
-          required
-        />
-
-        <label htmlFor="gender">Gênero</label>
-        <input
-          type="text"
-          name="gender"
-          id="gender"
-          value={userRegistrationData.gender}
-          onChange={({ target }) =>
-            setUserRegistrationData((loginData) => ({
-              ...loginData,
-              gender: target.value,
-            }))
-          }
-          required
-        />
-
         <label htmlFor="description">
-          Fale para nós um pouco sobre seus intereses...
+          Fale para nós um pouco sobre você ou sua empresa...
         </label>
         <textarea
           id="description"
           rows={10}
-          value={userRegistrationData.description}
+          value={sponsorRegistrationData.description}
           onChange={({ target }) =>
-            setUserRegistrationData((loginData) => ({
+            sponsorRegistrationData((loginData) => ({
               ...loginData,
               description: target.value,
             }))
@@ -156,9 +116,9 @@ const TransRegistrationForm = () => {
           type="tel"
           name="telephone"
           id="telephone"
-          value={userRegistrationData.telephone}
+          value={sponsorRegistrationData.telephone}
           onChange={({ target }) =>
-            setUserRegistrationData((loginData) => ({
+            sponsorRegistrationData((loginData) => ({
               ...loginData,
               telephone: target.value,
             }))
@@ -171,11 +131,41 @@ const TransRegistrationForm = () => {
           type="text"
           name="city"
           id="city"
-          value={userRegistrationData.city}
+          value={sponsorRegistrationData.city}
           onChange={({ target }) =>
-            setUserRegistrationData((loginData) => ({
+            sponsorRegistrationData((loginData) => ({
               ...loginData,
               city: target.value,
+            }))
+          }
+          required
+        />
+
+        <label htmlFor="city">Endereço</label>
+        <input
+          type="text"
+          name="address"
+          id="address"
+          value={sponsorRegistrationData.address}
+          onChange={({ target }) =>
+            sponsorRegistrationData((loginData) => ({
+              ...loginData,
+              address: target.value,
+            }))
+          }
+          required
+        />
+
+        <label htmlFor="site">Site</label>
+        <input
+          type="text"
+          name="site"
+          id="site"
+          value={sponsorRegistrationData.site}
+          onChange={({ target }) =>
+            sponsorRegistrationData((loginData) => ({
+              ...loginData,
+              site: target.value,
             }))
           }
           required
@@ -197,9 +187,12 @@ const TransRegistrationForm = () => {
             </option>
           ))}
         </select>
+        <button type="submit" onSubmit={(e) => registerSponsor(e)}>
+          Criar conta
+        </button>
       </form>
     </div>
   );
 };
 
-export default TransRegistrationForm;
+export default SponsorRegistrationFrom;

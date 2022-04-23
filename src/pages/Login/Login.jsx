@@ -67,6 +67,9 @@ const Login = () => {
       <p>
         <Link to="registro-usuario">Criar conta - usuário</Link>
       </p>
+      <p>
+        <Link to="registro-sponsor">Criar conta - Sponsor</Link>
+      </p>
     </>
   );
 };
