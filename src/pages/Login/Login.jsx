@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../components/UserContext/UserContext";
 import api from "../../services/api";
 
@@ -55,7 +55,8 @@ const Login = () => {
           required
         />
         <button
-          onClick={(e) => {
+          type="submit"
+          onSubmit={(e) => {
             e.preventDefault();
             logIn(loginData);
           }}
@@ -63,6 +64,9 @@ const Login = () => {
           Entrar
         </button>
       </form>
+      <p>
+        <Link to="registro-usuario">Criar conta - usuário</Link>
+      </p>
     </>
   );
 };

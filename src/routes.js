@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SponsorRoutes from "./components/SponsorRoutes";
+import TransRegistrationForm from "./components/TransRegistrationForm/TransRegistrationForm";
 import UserRoutes from "./components/UserRoutes/UserRoutes";
 
 import Login from "./pages/Login";
@@ -13,6 +14,7 @@ function Navigation() {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/registro-usuario" element={<TransRegistrationForm />} />
         <Route
           path="usuario/*"
           element={
@@ -30,9 +32,6 @@ function Navigation() {
           }
         ></Route>
         <Route path="/no-login" element={<Placeholder />} />
-        {/* <Route path="/:name" element={<PokemonDetails />} />
-        <Route path="/favoritos" element={<FavoritePokemon />} />
-        <Route path="/favoritos/:name" element={<PokemonDetails />} /> */}
       </Routes>
     </Router>
   );
