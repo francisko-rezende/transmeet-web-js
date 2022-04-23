@@ -1,5 +1,9 @@
 # Transmeet Web
 
+This is an incomplete version of the app developed by my team. In case you're looking for my main contribution/submission it is not this one, you can find it here: https://github.com/francisko-rezende/transmeet-landing-page
+
+That being said the code here (albeit messy amd rough) works, you can create users/sponsors, apply for sponsorships (as a user), approve/deny sponsorships (as a sponsor), check out your applications (as a user) and look for specific sponsor names (as a user).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
