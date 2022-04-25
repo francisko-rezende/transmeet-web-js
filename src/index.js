@@ -5,13 +5,19 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Navigation from "./routes";
 import { UserStorage } from "./components/UserContext/UserContext";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./styles/theme";
+import { GlobalStyles } from "./styles/GlobalStyles";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <UserStorage>
-      <Navigation />
-    </UserStorage>
+    <ThemeProvider theme={theme}>
+      <UserStorage>
+        <Navigation />
+      </UserStorage>
+      <GlobalStyles />
+    </ThemeProvider>
   </React.StrictMode>
 );
 
