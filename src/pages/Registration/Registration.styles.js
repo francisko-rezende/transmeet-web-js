@@ -69,19 +69,6 @@ export const Subtitle = styled.h2`
   `}
 `;
 
-// export const Link = styled.a`
-//   margin-top: 13px;
-//   ${({ theme }) => css`
-//     font-weight: ${theme.font.weight.semiBold};
-//     color: ${theme.colors.secondaryColor.secondary};
-//     font-size: ${theme.font.sizes["2"]};
-//     cursor: pointer;
-//     text-align: right;
-//     margin-bottom: 58px;
-//     width: 100%;
-//   `}
-// `;
-
 export const PersonPic = styled.img`
   position: absolute;
   max-width: 100%;
