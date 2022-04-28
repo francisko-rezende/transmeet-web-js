@@ -9,14 +9,14 @@ import UserRoutes from "./components/UserRoutes/UserRoutes";
 
 import Login from "./pages/Login";
 import Placeholder from "./pages/Placeholder";
+import Registration from "./pages/Registration";
 
 function Navigation() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/registro-usuario" element={<TransRegistrationForm />} />
-        <Route path="/registro-sponsor" element={<SponsorRegistrationForm />} />
+        <Route path="/registro" element={<Registration />} />
         <Route
           path="usuario/*"
           element={
