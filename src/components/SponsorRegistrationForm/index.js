@@ -1,1 +1,1 @@
-export { default } from "./SponsorRegistrationFrom.jsx";
+export { default } from "./SponsorRegistrationForm.jsx";
