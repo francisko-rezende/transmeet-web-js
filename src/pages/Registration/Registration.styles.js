@@ -6,12 +6,9 @@ import { Link as RouterLink } from "react-router-dom";
 export const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* height: 100vh; */
 `;
 
 export const GradientWrapper = styled.div`
-  /* flex: 1; */
-  /* width: 50vw; */
   background-image: url(${bg});
   background-position: center;
   background-size: cover;
@@ -19,12 +16,11 @@ export const GradientWrapper = styled.div`
 `;
 
 export const LoginWrapper = styled.div`
-  flex: 1;
-  /* width: 50vw; */
-  /* height: 100vh; */
   display: grid;
   place-content: center;
   justify-items: center;
+  padding: 0 1rem;
+  padding-bottom: 2rem;
 `;
 
 export const Form = styled.form`
@@ -33,8 +29,6 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 30px;
-  /* overflow-y: auto; */
 `;
 
 export const InputsWrapper = styled.div`
@@ -97,7 +91,8 @@ export const WhiteLogoWrapper = styled.div`
 `;
 
 export const Link = styled(RouterLink)`
-  text-decoration: underline;
+  /* text-decoration: underline; */
+  position: relative;
 
   ${({ theme }) => css`
     font-weight: ${theme.font.weight.semiBold};
@@ -105,6 +100,34 @@ export const Link = styled(RouterLink)`
 
     &:hover {
       color: ${theme.colors.secondaryColor.secondaryDark};
+
+      &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        /* bottom: -1rem; */
+        height: 2px;
+        background: ${theme.colors.secondaryColor.secondary};
+        animation: hoverAnimation 0.3s forwards;
+      }
+    }
+
+    @keyframes hoverAnimation {
+      from {
+        width: 0;
+        left: 50%;
+      }
+      to {
+        width: 100%;
+        left: 0;
+      }
     }
   `}
+`;
+
+export const TagWrapper = styled.div`
+  display: flex;
+  margin-bottom: 30px;
+  width: 100%;
+  justify-content: space-around;
 `;
