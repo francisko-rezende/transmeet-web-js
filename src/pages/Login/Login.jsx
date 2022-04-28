@@ -1,7 +1,14 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button/Button";
+import Input from "../../components/Input/Input";
 import { UserContext } from "../../components/UserContext/UserContext";
 import api from "../../services/api";
+import * as S from "./Login.styles";
+import { ReactComponent as LockIcon } from "../../assets/lock.svg";
+import { ReactComponent as MailIcon } from "../../assets/mail.svg";
+import TransmeetLogo from "../../assets/logo-login.webp";
+import WhiteTransmeetLogo from "../../assets/logo-white.webp";
 
 const Login = () => {
   const [loginData, setLoginData] = React.useState({ email: "", password: "" });
@@ -25,52 +32,78 @@ const Login = () => {
   };
 
   return (
-    <>
-      <h1>Página de login</h1>
-      <form>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          value={loginData.email}
-          onChange={({ target }) =>
-            setLoginData((loginData) => ({ ...loginData, email: target.value }))
-          }
-          required
-        />
-
-        <label htmlFor="">Senha</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={loginData.password}
-          onChange={({ target }) =>
-            setLoginData({ ...loginData, password: target.value })
-          }
-          onBlur={({ target }) =>
-            setLoginData({ ...loginData, password: target.value })
-          }
-          required
-        />
-        <button
-          type="submit"
-          onClick={(e) => {
-            e.preventDefault();
-            logIn(loginData);
-          }}
-        >
-          Entrar
-        </button>
-      </form>
-      <p>
-        <Link to="registro-usuario">Criar conta - usuário</Link>
-      </p>
-      <p>
-        <Link to="registro-sponsor">Criar conta - Sponsor</Link>
-      </p>
-    </>
+    <S.MainContainer>
+      <div>
+        <S.LoginWrapper>
+          <S.LogoWrapper>
+            <img src={TransmeetLogo} alt="Transmeet" width={155} height={115} />
+          </S.LogoWrapper>
+          <S.Title>Acesse sua conta</S.Title>
+          <S.Subtitle>
+            Faça seu login <S.Link to="/registro">ou crie sua conta</S.Link> e
+            aproveite as oportunidades que estão a sua espera!
+          </S.Subtitle>
+          <S.Form>
+            <S.InputsWrapper>
+              <Input
+                icon={<MailIcon />}
+                label="Email"
+                type="email"
+                name="email"
+                id="email"
+                value={loginData.email}
+                onChange={({ target }) =>
+                  setLoginData((loginData) => ({
+                    ...loginData,
+                    email: target.value,
+                  }))
+                }
+                required
+              />
+              <Input
+                icon={<LockIcon />}
+                label="Senha"
+                type="password"
+                name="password"
+                id="password"
+                value={loginData.password}
+                onChange={({ target }) =>
+                  setLoginData({ ...loginData, password: target.value })
+                }
+                onBlur={({ target }) =>
+                  setLoginData({ ...loginData, password: target.value })
+                }
+                required
+              />
+            </S.InputsWrapper>
+            {/* <S.Link>Esqueci minha senha</S.Link> */}
+            <Button
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                logIn(loginData);
+              }}
+            >
+              Entrar
+            </Button>
+          </S.Form>
+        </S.LoginWrapper>
+      </div>
+      <S.GradientWrapper>
+        <S.GradientSentence>
+          Somos a sua ponte para a{" "}
+          <span style={{ fontWeight: "bold" }}>educação</span>
+        </S.GradientSentence>
+        <S.WhiteLogoWrapper>
+          <img
+            src={WhiteTransmeetLogo}
+            alt="Transmeet"
+            width={201}
+            height={47}
+          />
+        </S.WhiteLogoWrapper>
+      </S.GradientWrapper>
+    </S.MainContainer>
   );
 };
 
