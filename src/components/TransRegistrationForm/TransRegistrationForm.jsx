@@ -4,6 +4,7 @@ import { getStateId } from "../../utils/getStateId";
 import { states } from "../../utils/states";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
+import Loading from "../Loading";
 import SelectInput from "../SelectInput";
 import * as S from "./TransRegistrationForm.styles";
 
@@ -24,6 +25,9 @@ const TransRegistrationForm = () => {
   });
 
   const [state, setState] = React.useState("Selecionar");
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isPostSuccessful, setIsPostSuccessful] = React.useState(null);
+  const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
     setUserRegistrationData((data) => ({
@@ -33,9 +37,31 @@ const TransRegistrationForm = () => {
   }, [state]);
 
   const registerUser = async () => {
-    const response = await api.post("/users", userRegistrationData);
+    try {
+      const response = await api.post("/users", userRegistrationData);
 
-    console.log(response);
+      if (response.status === 201) {
+        setUserRegistrationData({
+          name: "",
+          email: "",
+          password: "",
+          regNumber: "",
+          birthDate: "",
+          address: "",
+          gender: "",
+          description: "",
+          telephone: "",
+          city: "",
+          stateId: "",
+          typeId: 1,
+        });
+        setIsPostSuccessful(true);
+      }
+    } catch (error) {
+      setError(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -192,15 +218,28 @@ const TransRegistrationForm = () => {
         }
         required
       />
-      <Button
-        type="submit"
-        onClick={(e) => {
-          e.preventDefault();
-          registerUser();
-        }}
-      >
-        Criar conta
-      </Button>
+      {isPostSuccessful && (
+        <p style={{ color: "#28A745" }}>Conta criada com sucesso!</p>
+      )}
+      {error && (
+        <p style={{ color: "#DC3545" }}>
+          Houve um problema na criação da conta, tente novamente por favor.
+        </p>
+      )}
+      {isLoading ? (
+        // <Button disabled>Carregando...</Button>
+        <Loading />
+      ) : (
+        <Button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            registerUser();
+          }}
+        >
+          Criar conta
+        </Button>
+      )}
     </>
   );
 };
