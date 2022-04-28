@@ -12,4 +12,5 @@ const spin = keyframes`
 
 export const Loading = styled.img`
   animation: ${spin} 1s linear infinite;
+  margin: 0 auto;
 `;
