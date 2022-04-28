@@ -26,6 +26,7 @@ export const LoginWrapper = styled.div`
   display: grid;
   place-content: center;
   justify-items: center;
+  padding: 0 1rem;
 `;
 
 export const Form = styled.form`
@@ -58,6 +59,7 @@ export const Title = styled.h1`
 export const Subtitle = styled.h2`
   margin-bottom: 66px;
   text-align: center;
+  max-width: 70%;
 
   ${({ theme }) => css`
     color: ${theme.colors.typographyColors.grayLight};
@@ -66,6 +68,7 @@ export const Subtitle = styled.h2`
 `;
 
 export const Link = styled(RouterLink)`
+  /* position: relative; */
   text-decoration: underline;
 
   ${({ theme }) => css`
@@ -74,7 +77,29 @@ export const Link = styled(RouterLink)`
 
     &:hover {
       color: ${theme.colors.secondaryColor.secondaryDark};
+      color: "red";
+
+      /* &::after {
+        content: "";
+        position: absolute;
+        display: block;
+         bottom: -1rem; 
+        height: 2px;
+        background: ${theme.colors.secondaryColor.secondary};
+        animation: hoverAnimation 0.3s forwards;
+      } */
     }
+
+    /* @keyframes hoverAnimation {
+      from {
+        width: 0;
+        left: 50%;
+      }
+      to {
+        width: 100%;
+        left: 0;
+      }
+    } */
   `}
 `;
 

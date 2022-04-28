@@ -9,26 +9,47 @@ import { ReactComponent as LockIcon } from "../../assets/lock.svg";
 import { ReactComponent as MailIcon } from "../../assets/mail.svg";
 import TransmeetLogo from "../../assets/logo-login.webp";
 import WhiteTransmeetLogo from "../../assets/logo-white.webp";
+import Loading from "../../components/Loading";
 
 const Login = () => {
   const [loginData, setLoginData] = React.useState({ email: "", password: "" });
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState(false);
 
   const { userData, setUserData } = React.useContext(UserContext);
   const navigate = useNavigate();
 
   const logIn = async (loginData) => {
-    const {
-      data: { access_token, account },
-    } = await api.post("/login", loginData);
+    const testSponsor = {
+      email: "ponto@frio.com.br",
+      password: "PontoFrio123",
+    };
 
-    setUserData({ access_token: access_token, account: account });
+    const testUser = {
+      email: "steve.magal@email.com",
+      password: "SteveMagal123",
+    };
 
-    if (userData.access_token && userData.account.typeId === 1) {
-      navigate("/usuario");
+    try {
+      setIsLoading(true);
+      setError(null);
+      console.log(loginData);
+      const {
+        data: { access_token, account },
+      } = await api.post("/login", loginData);
+
+      setUserData({ access_token: access_token, account: account });
+
+      if (access_token && account.typeId === 1) {
+        navigate("/usuario");
+      }
+
+      if (access_token && account.typeId === 2) navigate("/sponsor");
+    } catch (err) {
+      setError(true);
+    } finally {
+      setIsLoading(false);
     }
-
-    if (userData.access_token && userData.account.typeId === 2)
-      navigate("/sponsor");
   };
 
   return (
@@ -75,17 +96,25 @@ const Login = () => {
                 }
                 required
               />
+              {!!error && (
+                <p style={{ color: "red" }}>Senha e/ou usuário incorretos</p>
+              )}
             </S.InputsWrapper>
             {/* <S.Link>Esqueci minha senha</S.Link> */}
-            <Button
-              type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                logIn(loginData);
-              }}
-            >
-              Entrar
-            </Button>
+            {isLoading ? (
+              // <Button disabled>Carregando...</Button>
+              <Loading />
+            ) : (
+              <Button
+                type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                  logIn(loginData);
+                }}
+              >
+                Entrar
+              </Button>
+            )}
           </S.Form>
         </S.LoginWrapper>
       </div>
