@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Card from "../../components/Card";
 import { UserContext } from "../../components/UserContext/UserContext";
 import api from "../../services/api";
 
@@ -20,6 +21,7 @@ const Home = () => {
         },
       });
       setSponsors(response.data);
+      console.log(response.data);
     };
 
     if (account.typeId === 1) {
@@ -61,12 +63,22 @@ const Home = () => {
       <div>
         <h2>Resultado da busca</h2>
         <ul>
-          {searchResult.length !== 0 &&
+          {/* {searchResult.length !== 0 &&
             searchResult.map((result) => (
               <li key={result.id}>
                 <Link to={`sponsors/${result.id}`} state={result}>
                   {result.name}{" "}
                 </Link>
+              </li>
+            ))} */}
+          {searchResult.length !== 0 &&
+            searchResult.map((result) => (
+              <li key={result.id}>
+                <Card
+                  name={result.name}
+                  to={`sponsors/${result.id}`}
+                  state={result}
+                />
               </li>
             ))}
         </ul>
@@ -78,9 +90,11 @@ const Home = () => {
           {sponsors.length !== 0 &&
             sponsors.map((sponsor) => (
               <li key={sponsor.id}>
-                <Link to={`sponsors/${sponsor.id}`} state={sponsor}>
-                  {sponsor.name}{" "}
-                </Link>
+                <Card
+                  to={`sponsors/${sponsor.id}`}
+                  state={sponsor}
+                  name={sponsor.name}
+                />
               </li>
             ))}
         </ul>
