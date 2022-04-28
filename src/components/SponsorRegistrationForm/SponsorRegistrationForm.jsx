@@ -4,6 +4,7 @@ import { getStateId } from "../../utils/getStateId";
 import { states } from "../../utils/states";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
+import Loading from "../Loading";
 import SelectInput from "../SelectInput";
 import * as S from "./SponsorRegistrationForm.styles";
 
@@ -23,6 +24,9 @@ const SponsorRegistrationForm = () => {
   });
 
   const [state, setState] = React.useState("Selecionar");
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isPostSuccessful, setIsPostSuccessful] = React.useState(null);
+  const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
     setSponsorRegistrationData((data) => ({
@@ -32,9 +36,34 @@ const SponsorRegistrationForm = () => {
   }, [state]);
 
   const registerSponsor = async () => {
-    const response = await api.post("/sponsors", sponsorRegistrationData);
+    try {
+      setIsPostSuccessful(false);
+      setIsLoading(true);
+      setError(false);
 
-    console.log(response);
+      const response = await api.post("/sponsors", sponsorRegistrationData);
+
+      if (response.status === 201) {
+        setSponsorRegistrationData({
+          name: "",
+          email: "",
+          password: "",
+          regNumber: "",
+          address: "",
+          description: "",
+          telephone: "",
+          city: "",
+          site: "",
+          stateId: 24,
+          typeId: 2,
+        });
+        setIsPostSuccessful(true);
+      }
+    } catch (error) {
+      setError(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -178,16 +207,28 @@ const SponsorRegistrationForm = () => {
         }
         required
       />
-
-      <Button
-        type="submit"
-        onClick={(e) => {
-          e.preventDefault();
-          registerSponsor();
-        }}
-      >
-        Criar conta
-      </Button>
+      {isPostSuccessful && (
+        <p style={{ color: "#28A745" }}>Conta criada com sucesso!</p>
+      )}
+      {error && (
+        <p style={{ color: "#DC3545" }}>
+          Houve um problema na criação da conta, tente novamente por favor.
+        </p>
+      )}
+      {isLoading ? (
+        // <Button disabled>Carregando...</Button>
+        <Loading />
+      ) : (
+        <Button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            registerSponsor();
+          }}
+        >
+          Criar conta
+        </Button>
+      )}
     </>
   );
 };
