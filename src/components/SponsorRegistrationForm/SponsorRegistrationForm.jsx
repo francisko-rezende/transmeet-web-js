@@ -70,15 +70,15 @@ const SponsorRegistrationForm = () => {
       />
 
       <Input
-        label="Senha"
-        type="password"
-        name="password"
-        id="password"
-        value={sponsorRegistrationData.password}
+        label="Telefone"
+        type="tel"
+        name="telephone"
+        id="telephone"
+        value={sponsorRegistrationData.telephone}
         onChange={({ target }) =>
           setSponsorRegistrationData((loginData) => ({
             ...loginData,
-            password: target.value,
+            telephone: target.value,
           }))
         }
         required
@@ -99,32 +99,11 @@ const SponsorRegistrationForm = () => {
         required
       />
 
-      <S.TextArea
-        placeholder="Fala pra gente um pouco sobre os seus interesses..."
-        id="description"
-        rows={10}
-        value={sponsorRegistrationData.description}
-        onChange={({ target }) =>
-          setSponsorRegistrationData((loginData) => ({
-            ...loginData,
-            description: target.value,
-          }))
-        }
-      />
-
-      <Input
-        label="Telefone"
-        type="tel"
-        name="telephone"
-        id="telephone"
-        value={sponsorRegistrationData.telephone}
-        onChange={({ target }) =>
-          setSponsorRegistrationData((loginData) => ({
-            ...loginData,
-            telephone: target.value,
-          }))
-        }
-        required
+      <SelectInput
+        name="Estado"
+        value={state}
+        onChange={({ target }) => setState(target.value)}
+        options={states}
       />
 
       <Input
@@ -172,11 +151,32 @@ const SponsorRegistrationForm = () => {
         required
       />
 
-      <SelectInput
-        name="Estado"
-        value={state}
-        onChange={({ target }) => setState(target.value)}
-        options={states}
+      <S.TextArea
+        placeholder="Fala pra gente um pouco sobre a sua empresa..."
+        id="description"
+        rows={10}
+        value={sponsorRegistrationData.description}
+        onChange={({ target }) =>
+          setSponsorRegistrationData((loginData) => ({
+            ...loginData,
+            description: target.value,
+          }))
+        }
+      />
+
+      <Input
+        label="Senha"
+        type="password"
+        name="password"
+        id="password"
+        value={sponsorRegistrationData.password}
+        onChange={({ target }) =>
+          setSponsorRegistrationData((loginData) => ({
+            ...loginData,
+            password: target.value,
+          }))
+        }
+        required
       />
 
       <Button

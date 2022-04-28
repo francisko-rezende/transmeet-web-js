@@ -70,19 +70,20 @@ const TransRegistrationForm = () => {
       />
 
       <Input
-        label="Senha"
-        type="password"
-        name="password"
-        id="password"
-        value={userRegistrationData.password}
+        label="Telefone"
+        type="tel"
+        name="telephone"
+        id="telephone"
+        value={userRegistrationData.telephone}
         onChange={({ target }) =>
           setUserRegistrationData((loginData) => ({
             ...loginData,
-            password: target.value,
+            telephone: target.value,
           }))
         }
         required
       />
+
       <Input
         label="CPF"
         type="tel"
@@ -112,20 +113,6 @@ const TransRegistrationForm = () => {
         }
         required
       />
-      <Input
-        label="Endereço"
-        type="text"
-        name="address"
-        id="address"
-        value={userRegistrationData.address}
-        onChange={({ target }) =>
-          setUserRegistrationData((loginData) => ({
-            ...loginData,
-            address: target.value,
-          }))
-        }
-        required
-      />
 
       <Input
         label="Gênero"
@@ -141,32 +128,12 @@ const TransRegistrationForm = () => {
         }
         required
       />
-      <S.TextArea
-        placeholder="Fala pra gente um pouco sobre os seus interesses..."
-        id="description"
-        rows={10}
-        value={userRegistrationData.description}
-        onChange={({ target }) =>
-          setUserRegistrationData((loginData) => ({
-            ...loginData,
-            description: target.value,
-          }))
-        }
-      />
 
-      <Input
-        label="Telefone"
-        type="tel"
-        name="telephone"
-        id="telephone"
-        value={userRegistrationData.telephone}
-        onChange={({ target }) =>
-          setUserRegistrationData((loginData) => ({
-            ...loginData,
-            telephone: target.value,
-          }))
-        }
-        required
+      <SelectInput
+        name="Estado"
+        value={state}
+        onChange={({ target }) => setState(target.value)}
+        options={states}
       />
 
       <Input
@@ -183,12 +150,47 @@ const TransRegistrationForm = () => {
         }
         required
       />
+      <Input
+        label="Endereço"
+        type="text"
+        name="address"
+        id="address"
+        value={userRegistrationData.address}
+        onChange={({ target }) =>
+          setUserRegistrationData((loginData) => ({
+            ...loginData,
+            address: target.value,
+          }))
+        }
+        required
+      />
 
-      <SelectInput
-        name="Estado"
-        value={state}
-        onChange={({ target }) => setState(target.value)}
-        options={states}
+      <S.TextArea
+        placeholder="Fala pra gente um pouco sobre os seus interesses..."
+        id="description"
+        rows={10}
+        value={userRegistrationData.description}
+        onChange={({ target }) =>
+          setUserRegistrationData((loginData) => ({
+            ...loginData,
+            description: target.value,
+          }))
+        }
+      />
+
+      <Input
+        label="Senha"
+        type="password"
+        name="password"
+        id="password"
+        value={userRegistrationData.password}
+        onChange={({ target }) =>
+          setUserRegistrationData((loginData) => ({
+            ...loginData,
+            password: target.value,
+          }))
+        }
+        required
       />
       <Button
         type="submit"
