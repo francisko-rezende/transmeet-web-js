@@ -9,8 +9,10 @@ export const Button = styled.button`
   border-radius: 24px;
   cursor: pointer;
 
-  ${({ theme }) => css`
-    background: ${theme.colors.secondaryColor.secondary};
+  ${({ theme, disabled }) => css`
+    background: ${!disabled
+      ? theme.colors.secondaryColor.secondary
+      : theme.colors.secondaryColor.secondaryDark};
     color: ${theme.colors.typographyColors.white};
     font-weight: ${theme.font.weight.bold};
 
