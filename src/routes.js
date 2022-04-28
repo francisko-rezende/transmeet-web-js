@@ -2,9 +2,7 @@ import React from "react";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
-import SponsorRegistrationForm from "./components/SponsorRegistrationForm";
 import SponsorRoutes from "./components/SponsorRoutes";
-import TransRegistrationForm from "./components/TransRegistrationForm";
 import UserRoutes from "./components/UserRoutes/UserRoutes";
 
 import Login from "./pages/Login";
