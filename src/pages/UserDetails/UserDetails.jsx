@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { UserContext } from "../../components/UserContext/UserContext";
 import api from "../../services/api";
+import * as S from "./UserDetails.styles";
 
 const evaluateCandidateRequest = async (matchId, access_token, isAccepted) => {
   const response = await api.patch(
@@ -19,6 +20,8 @@ const evaluateCandidateRequest = async (matchId, access_token, isAccepted) => {
 const UserDetails = () => {
   const location = useLocation();
 
+  const previousLocation = location.pathname.split("/").slice(0, -2).join("/");
+
   const {
     userData: { access_token, account },
   } = React.useContext(UserContext);
@@ -26,44 +29,81 @@ const UserDetails = () => {
   const { accounts_accountsTomatch_idUser: candidateData, id: matchId } =
     location.state;
 
-  // console.log(candidateData, matchId);
+  console.log(location.state);
+  const shouldDisableBtns =
+    location.state.accept === true || location.state.accept === false;
+
+  const shouldShowBtns = location.state.accept !== true;
 
   const { name, description, city, telephone, email, gender } = candidateData;
 
   return (
-    <div>
-      <header>
-        <a style={{ color: "white", background: "black" }} href="#">
-          {" "}
-          <span
-            style={{ transform: "rotate(180deg)", display: "inline-block" }}
-          ></span>{" "}
-          Voltar
-        </a>
-        <h2>{candidateData.name}</h2>
-      </header>
-      <main>
-        <h2>Sobre {name}</h2>
-        <p>{description}</p>
-        <p>Local: {city}</p>
-        <p>Contato: {telephone}</p>
-        <p>Email: {email}</p>
-        <p>Gênero: {gender}</p>
+    <S.Bg>
+      <S.Container>
+        <S.Header>
+          <S.Link to={previousLocation}>
+            <S.LeftArrowIcon /> Voltar
+          </S.Link>
+          <h2 style={{ textAlign: "center" }}>Candidato</h2>
+        </S.Header>
+      </S.Container>
+      <S.DetailsWrapper>
+        <h2>{name}</h2>
         <p>
-          Sobre: <br /> {description}
+          <strong>Local</strong>: {city}
         </p>
-      </main>
-      <button
-        onClick={() => evaluateCandidateRequest(matchId, access_token, false)}
-      >
-        Dispensar
-      </button>
-      <button
-        onClick={() => evaluateCandidateRequest(matchId, access_token, true)}
-      >
-        Combinar
-      </button>
-    </div>
+        <p>
+          <strong>Contato</strong>: {telephone}
+        </p>
+        <p>
+          <strong>Email</strong>: {email}
+        </p>
+        <p>
+          <strong>Gênero</strong>: {gender}
+        </p>
+        <p>
+          <strong>Sobre</strong>: <br /> {description}
+        </p>
+      </S.DetailsWrapper>
+      {shouldShowBtns && (
+        <S.BtnsWrapper>
+          <S.Button
+            onClick={() => {
+              const shouldRejectMatch = window.confirm(
+                "Tem certeza que deseja rejeitar essa combinação?"
+              );
+
+              if (shouldRejectMatch) {
+                evaluateCandidateRequest(matchId, access_token, false);
+                return;
+              }
+              return;
+            }}
+            isMatchBtn={false}
+            disabled={shouldDisableBtns}
+          >
+            Dispensar
+          </S.Button>
+          <S.Button
+            onClick={() => {
+              const shouldConfirmMatch = window.confirm(
+                "Tem certeza que deseja confirmar essa combinação?"
+              );
+
+              if (shouldConfirmMatch) {
+                evaluateCandidateRequest(matchId, access_token, true);
+                return;
+              }
+              return;
+            }}
+            isMatchBtn={true}
+            disabled={shouldDisableBtns}
+          >
+            Combinar
+          </S.Button>
+        </S.BtnsWrapper>
+      )}
+    </S.Bg>
   );
 };
 
