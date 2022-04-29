@@ -7,9 +7,9 @@ export const Button = styled.button`
   padding-bottom: 1rem;
   width: 100%;
   border-radius: 24px;
-  cursor: pointer;
 
   ${({ theme, disabled }) => css`
+    cursor: ${disabled ? "unset" : "pointer"};
     background: ${!disabled
       ? theme.colors.secondaryColor.secondary
       : theme.colors.secondaryColor.secondaryDark};
