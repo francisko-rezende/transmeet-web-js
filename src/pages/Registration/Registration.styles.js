@@ -6,6 +6,10 @@ import { Link as RouterLink } from "react-router-dom";
 export const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const GradientWrapper = styled.div`
@@ -13,6 +17,10 @@ export const GradientWrapper = styled.div`
   background-position: center;
   background-size: cover;
   position: relative;
+
+  @media (max-width: 576px) {
+    display: none;
+  }
 `;
 
 export const LoginWrapper = styled.div`
@@ -97,37 +105,18 @@ export const Link = styled(RouterLink)`
   ${({ theme }) => css`
     font-weight: ${theme.font.weight.semiBold};
     color: ${theme.colors.secondaryColor.secondary};
+    text-decoration: underline;
 
     &:hover {
       color: ${theme.colors.secondaryColor.secondaryDark};
-
-      &::after {
-        content: "";
-        position: absolute;
-        display: block;
-        /* bottom: -1rem; */
-        height: 2px;
-        background: ${theme.colors.secondaryColor.secondary};
-        animation: hoverAnimation 0.3s forwards;
-      }
-    }
-
-    @keyframes hoverAnimation {
-      from {
-        width: 0;
-        left: 50%;
-      }
-      to {
-        width: 100%;
-        left: 0;
-      }
     }
   `}
 `;
 
 export const TagWrapper = styled.div`
   display: flex;
+  gap: 20px;
   margin-bottom: 30px;
   width: 100%;
-  justify-content: space-around;
+  justify-content: center;
 `;
