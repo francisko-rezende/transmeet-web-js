@@ -9,9 +9,15 @@ const Card = ({
   imgPath = avatar,
   to,
   state,
+  className,
 }) => {
   return (
-    <S.Link matchStatus={matchStatus} to={to} state={state}>
+    <S.Link
+      matchStatus={matchStatus}
+      to={to}
+      state={state}
+      className={className}
+    >
       <S.NameWrapper>
         <S.Name>{name}</S.Name>
         <S.DetailsText>
