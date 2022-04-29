@@ -14,7 +14,6 @@ const evaluateCandidateRequest = async (matchId, access_token, isAccepted) => {
       },
     }
   );
-  console.log(response);
 };
 
 const UserDetails = () => {
@@ -29,11 +28,10 @@ const UserDetails = () => {
   const { accounts_accountsTomatch_idUser: candidateData, id: matchId } =
     location.state;
 
-  console.log(location.state);
+  const shouldShowBtns = location.state.accept === null;
+
   const shouldDisableBtns =
     location.state.accept === true || location.state.accept === false;
-
-  const shouldShowBtns = location.state.accept !== true;
 
   const { name, description, city, telephone, email, gender } = candidateData;
 
@@ -65,7 +63,8 @@ const UserDetails = () => {
           <strong>Sobre</strong>: <br /> {description}
         </p>
       </S.DetailsWrapper>
-      {shouldShowBtns && (
+
+      {shouldShowBtns ? (
         <S.BtnsWrapper>
           <S.Button
             onClick={() => {
@@ -102,7 +101,17 @@ const UserDetails = () => {
             Combinar
           </S.Button>
         </S.BtnsWrapper>
+      ) : (
+        <S.Container>
+          <p style={{ color: "white" }}>Você já avaliou essa solicitação</p>
+        </S.Container>
       )}
+
+      {/* {!shouldShowBtns && (
+        <S.Container>
+          <p style={{ color: "white" }}>Você já avaliou essa solicitação</p>
+        </S.Container>
+      )} */}
     </S.Bg>
   );
 };
