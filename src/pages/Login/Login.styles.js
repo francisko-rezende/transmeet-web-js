@@ -4,8 +4,13 @@ import { css } from "styled-components";
 import bg from "../../assets/login-bg-img.webp";
 
 export const MainContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   height: 100vh;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const GradientWrapper = styled.div`
@@ -17,12 +22,16 @@ export const GradientWrapper = styled.div`
   background-position: center;
   background-size: cover;
   position: relative;
+
+  @media (max-width: 576px) {
+    display: none;
+  }
 `;
 
 export const LoginWrapper = styled.div`
-  flex: 1;
-  width: 50vw;
-  height: 100vh;
+  /* width: 50vw; */
+  min-height: 100vh;
+  height: 100%;
   display: grid;
   place-content: center;
   justify-items: center;
