@@ -1,33 +1,38 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Card from "../../components/Card";
+import CardContainer from "../../components/CardContainer";
+import Header from "../../components/Header";
+import Loading from "../../components/Loading";
+import SearchForm from "../../components/SearchForm";
 import { UserContext } from "../../components/UserContext/UserContext";
 import api from "../../services/api";
+import * as S from "./Home.styles";
+import { ReactComponent as RightArrowIcon } from "../../assets/arrow-right.svg";
 
 const Home = () => {
   const {
     userData: { access_token, account },
   } = React.useContext(UserContext);
 
+  const [isLoading, setIsLoading] = React.useState(false);
   const [query, setQuery] = React.useState("");
   const [searchResult, setSearchResult] = React.useState([]);
   const [sponsors, setSponsors] = React.useState([]);
 
   React.useEffect(() => {
     const fetchSponsors = async () => {
+      setIsLoading(true);
       const response = await api.get("/sponsors", {
         headers: {
           authorization: `Bearer ${access_token}`,
         },
       });
       setSponsors(response.data);
-      console.log(response.data);
+      setIsLoading(false);
     };
 
-    if (account.typeId === 1) {
-      fetchSponsors();
-    }
-  }, []);
+    fetchSponsors();
+  }, [access_token]);
 
   const searchForCompany = async (searchTerm) => {
     const response = await api.get(`/sponsors/${searchTerm}`, {
@@ -35,44 +40,27 @@ const Home = () => {
         authorization: `Bearer ${access_token}`,
       },
     });
-    console.log(response);
     setSearchResult(response.data);
   };
 
   return (
-    <>
-      <h1>Home</h1>
-      <form>
-        <label htmlFor="search">Buscar Empresa</label>
-        <input
-          type="text"
-          name="search"
-          id="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            searchForCompany(query);
-          }}
-        >
-          Buscar
-        </button>
-      </form>
-      <div>
-        <h2>Resultado da busca</h2>
-        <ul>
-          {/* {searchResult.length !== 0 &&
-            searchResult.map((result) => (
-              <li key={result.id}>
-                <Link to={`sponsors/${result.id}`} state={result}>
-                  {result.name}{" "}
-                </Link>
-              </li>
-            ))} */}
-          {searchResult.length !== 0 &&
-            searchResult.map((result) => (
+    <S.Bg>
+      <Header name={account.name} />
+      <SearchForm
+        onChangeInput={(e) => setQuery(e.target.value)}
+        valueInput={query}
+        onClickSearchBtn={(e) => {
+          e.preventDefault();
+          searchForCompany(query);
+        }}
+      />
+      {searchResult.length !== 0 && (
+        <>
+          <S.Container>
+            <S.Subtitle>Resultado da busca</S.Subtitle>
+          </S.Container>
+          <CardContainer>
+            {searchResult.map((result) => (
               <li key={result.id}>
                 <Card
                   name={result.name}
@@ -81,29 +69,34 @@ const Home = () => {
                 />
               </li>
             ))}
-        </ul>
-      </div>
+          </CardContainer>
+        </>
+      )}
 
-      <div>
-        <h2>Todas as empresas</h2>
-        <ul>
-          {sponsors.length !== 0 &&
-            sponsors.map((sponsor) => (
-              <li key={sponsor.id}>
-                <Card
-                  to={`sponsors/${sponsor.id}`}
-                  state={sponsor}
-                  name={sponsor.name}
-                />
-              </li>
-            ))}
-        </ul>
-      </div>
+      <S.Container>
+        <S.Subtitle>Todas as empresas</S.Subtitle>
+      </S.Container>
 
-      <h2>
-        <Link to="candidaturas">Ver candidaturas</Link>
-      </h2>
-    </>
+      <CardContainer>
+        {isLoading && <Loading />}
+        {sponsors.length !== 0 &&
+          sponsors.map((sponsor) => (
+            <li key={sponsor.id}>
+              <Card
+                to={`sponsors/${sponsor.id}`}
+                state={sponsor}
+                name={sponsor.name}
+              />
+            </li>
+          ))}
+      </CardContainer>
+
+      <S.Container>
+        <S.Link to="candidaturas">
+          Ver candidaturas <RightArrowIcon />
+        </S.Link>
+      </S.Container>
+    </S.Bg>
   );
 };
 
