@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Transmeet web",
+  "name": "Plataforma web do app da Transmeet",
   "icons": [
     {
       "src": "favicon.ico",
