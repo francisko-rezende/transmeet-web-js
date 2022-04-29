@@ -54,6 +54,7 @@ export const DetailsWrapper = styled.section`
 export const Button = styled.button`
   padding: 13px 24px;
   border-radius: 24px;
+  cursor: pointer;
   border: none;
   ${({ theme, isMatchBtn }) => css`
     color: ${theme.colors.typographyColors.white};
