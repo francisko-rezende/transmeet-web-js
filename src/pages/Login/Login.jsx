@@ -12,7 +12,16 @@ import WhiteTransmeetLogo from "../../assets/logo-white.webp";
 import Loading from "../../components/Loading";
 
 const Login = () => {
-  const [loginData, setLoginData] = React.useState({ email: "", password: "" });
+  // const [loginData, setLoginData] = React.useState({ email: "", password: "" });
+  // const [loginData, setLoginData] = React.useState({
+  //   email: "ponto@frio.com.br",
+  //   password: "PontoFrio123",
+  // });
+
+  const [loginData, setLoginData] = React.useState({
+    email: "ponto@frio.com.br",
+    password: "PontoFrio123",
+  });
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
 
