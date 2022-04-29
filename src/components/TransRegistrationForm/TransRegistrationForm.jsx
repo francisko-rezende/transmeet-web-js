@@ -218,6 +218,11 @@ const TransRegistrationForm = () => {
         }
         required
       />
+      <p style={{ fontSize: "12px" }}>
+        A senha precisa ter pelo menos 1 caractere maiúsculo, 1 minúsculo e 1
+        dígito e ter, no mínimo, 8 caracteres.
+      </p>
+
       {isPostSuccessful && (
         <p style={{ color: "#28A745" }}>Conta criada com sucesso!</p>
       )}

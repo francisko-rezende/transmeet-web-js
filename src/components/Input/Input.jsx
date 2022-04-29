@@ -27,7 +27,12 @@ const Input = ({
           {...props}
         />
       </S.Wrapper>
-      {error && <p>As senhas não são idênticas</p>}
+      {error && (
+        <p style={{ color: "#DC3545" }}>
+          A senha precisa ter 1 caractere maiúsculo, 1 minúsculo e 1 dígito. Com
+          no mínimo 8 caracteres.
+        </p>
+      )}
     </>
   );
 };
