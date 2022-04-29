@@ -26,13 +26,21 @@ const cardVariants = {
 
 export const Link = styled(RouterLink)`
   background-color: hsla(211, 44%, 15%, 1);
-  width: 370px;
+  width: 372px;
   height: 109px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
+
+  &:hover {
+    box-shadow: -10px 0 ${({ theme }) => theme.colors.secondaryColor.secondary};
+  }
+
+  @media (max-width: 576px) {
+    width: 346px;
+  }
 
   &::before {
     display: block;
